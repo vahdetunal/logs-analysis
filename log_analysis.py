@@ -20,6 +20,11 @@ def execute_query(query_string):
 
 def popular_articles():
     # Returns the three most viewed articles from news database
+
+    # log table has only the statuses 200 OK and 404 ERROR where
+    # request is made to an incorrect uri. Howeever, it could possibly
+    # have POST requests from author or some errors.
+    # Therefore, status and method conditions are left in the query.
     query = ("select articles.title, count(*) as num "
              "from articles, log "
              "where log.path like '/article/' || articles.slug "
@@ -33,6 +38,10 @@ def popular_articles():
 
 def author_ranking():
     # Returns names of the authors and their view counts, sorted by views
+
+    # Article URIs have the form /article/slug. Counting access to URIs
+    # that are an exact match to the given form reveals how many times they
+    # are viewed.
     query = ("select authors.name, count(*) as num "
              "from authors, articles, log "
              "where authors.id=articles.author "
