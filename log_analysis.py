@@ -93,3 +93,19 @@ def generate_report(articles, authors, error_stats):
               + error_table
               )
     return report
+
+
+def main():
+    # Obtain the data for the report from the database
+    articles = popular_articles()
+    authors = author_ranking()
+    error_stats = format_error_statistics(error_statistics())
+
+    # Generate and print the report
+    report = generate_report(articles, authors, error_stats)
+    print(report)
+
+
+# Run the main function if called from terminal.
+if __name__ == '__main__':
+    main()
