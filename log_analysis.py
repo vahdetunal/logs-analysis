@@ -78,7 +78,7 @@ def format_error_statistics(error_stats):
     for i in range(len(error_stats)):
         entry = error_stats[i]
         percentage = round(entry[1]*100, 2)
-        percentage_str = str(percentage) + '%%'
+        percentage_str = str(percentage) + '%'
         error_stats[i] = (entry[0], percentage_str)
     return error_stats
 
@@ -99,7 +99,7 @@ def generate_report(articles, authors, error_stats):
               + '===== Author Ropularity Ranking =====\n'
               + author_table
               + '\n\n'
-              + '===== Days with Request Errors Higher than 1%% =====\n'
+              + '===== Days with Request Errors Higher than 1% =====\n'
               + error_table
               )
     return report
