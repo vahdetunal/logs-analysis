@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import psycopg2
+from tabulate import tabulate
 
 
 def execute_query(query_string):
@@ -70,3 +71,25 @@ def format_error_statistics(error_stats):
         percentage_str = str(percentage) + '%%'
         error_stats[i] = (entry[0], percentage_str)
     return error_stats
+
+
+def generate_report(articles, authors, error_stats):
+    # Generates a report using query results and tabulate library
+    article_headers = ['Title', 'Views']
+    author_headers = ['Name', 'Views']
+    error_headers = ['Date', 'Error Rate']
+
+    article_table = tabulate(articles, headers=article_headers)
+    author_table = tabulate(authors, headers=author_headers)
+    error_table = tabulate(error_stats, headers=error_headers)
+
+    report = ('===== Three Most Viewed Articles =====\n'
+              + article_table
+              + '\n\n'
+              + '===== Author Ropularity Ranking =====\n'
+              + author_table
+              + '\n\n'
+              + '===== Days with Request Errors Higher than 1%% =====\n'
+              + error_table
+              )
+    return report
