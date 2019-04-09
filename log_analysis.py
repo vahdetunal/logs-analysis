@@ -61,3 +61,12 @@ def error_statistics():
              )
     return execute_query(query)
 
+
+def format_error_statistics(error_stats):
+    # Formats the output of error query rate from floats to percntage strings
+    for i in range(len(error_stats)):
+        entry = error_stats[i]
+        percentage = round(entry[1]*100, 2)
+        percentage_str = str(percentage) + '%%'
+        error_stats[i] = (entry[0], percentage_str)
+    return error_stats
