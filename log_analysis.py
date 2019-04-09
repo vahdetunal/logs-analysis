@@ -58,7 +58,7 @@ def error_statistics():
                         "group by days) as requests, "
                         )
     error_subquery = ("(select date(time) as days, count(*) as num from log "
-                      "where status!='200 OK' "
+                      "where status='404 NOT FOUND' "
                       "group by days) as errors "
                       )
     query = ("select requests.days, "
