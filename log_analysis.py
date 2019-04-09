@@ -55,7 +55,7 @@ def author_ranking():
 def error_statistics():
     # Returns the days when more than 2% of the requests resulted in an error.
     request_subquery = ("(select date(time) as days, count(*) as num from log "
-                        "group by days) as requests, "
+                        "group by days) as requests "
                         )
     error_subquery = ("(select date(time) as days, count(*) as num from log "
                       "where status='404 NOT FOUND' "
@@ -64,9 +64,10 @@ def error_statistics():
     query = ("select requests.days, "
              "errors.num/cast(requests.num as float) as error_rate from "
              + request_subquery
+             + 'left join '
              + error_subquery
-             + "where requests.days = errors.days "
-             "and errors.num/cast(requests.num as float) > 0.01 "
+             + "on requests.days = errors.days "
+             "where errors.num/cast(requests.num as float) > 0.01 "
              "order by days;"
              )
     return execute_query(query)
