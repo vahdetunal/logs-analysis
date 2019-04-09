@@ -28,3 +28,15 @@ def popular_articles():
              "limit 3;"
              )
     return execute_query(query)
+
+
+def author_ranking():
+    # Returns names of the authors and their view counts, sorted by views
+    query = ("select authors.name, count(*) as num "
+             "from authors, articles, log "
+             "where authors.id=articles.author "
+             "and log.path like '/article/' || articles.slug "
+             "group by authors.id "
+             "order by num desc;"
+             )
+    return execute_query(query)
