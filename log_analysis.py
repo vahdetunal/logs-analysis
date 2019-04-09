@@ -57,6 +57,8 @@ def error_statistics():
     request_subquery = ("(select date(time) as days, count(*) as num from log "
                         "group by days) as requests "
                         )
+    # logs table has only 404 NOT FOUND errors. For a more comprehensive query
+    # all requests with 4xx and 5xx status codes could be counted.
     error_subquery = ("(select date(time) as days, count(*) as num from log "
                       "where status='404 NOT FOUND' "
                       "group by days) as errors "
