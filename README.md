@@ -35,3 +35,22 @@ as log_analysis.py.
 
 Using `python3 log_analysis.py` command in the terminal will generate and print
 the report.
+
+## Design
+
+The function `execute_query(query_string)` is used to run the queries using 
+psycopg2 against the news database.
+
+Functions `popular_articles()`, `author_ranking()` and `error_statistics()`
+contain query strings to answer the three questions given above in order. These
+functions run the queries making use of the execute_query function. The output
+of error_statistics requires some further formatting which is done by
+the function `format_error_statistics(error_stats)`.
+
+The function `generate_report(articles, authors, error_stats)` uses the outputs
+from three query functions to generate the report. tabulate library is used to
+format the tables in plain text.
+
+The main function makes use of the three query funcions `popular_articles()`, 
+`author_ranking()`, `error_statistics()` and the generate_report function
+to obtain and print the report.
